@@ -1,0 +1,252 @@
+##################### MÉTODOS DE TESTE #####################
+assert(boolean, message)
+    Se o parâmetro boolean for nil ou false a asserção irá falhar.
+
+assert_equal(expected, actual, message)
+assert_not_equal(expected, actual, message)
+    A asserção irá falhar a menos que expected e actual sejam iguais/diferentes.
+
+assert_nil(object, message)
+assert_not_nil(object, message)
+    A asserção irá falhar a menos que object seja/não seja nil.
+
+assert_raise(Exception, ..., message) { block... }
+assert_not_raise(Exception, ..., message) { block... }
+    A asserção irá falhar a menos que block dispare/não dispare um erro da exceção especificada.
+
+assert_match(pattern, string, message)
+assert_no_match(pattern, string, message)
+    A asserção irá falhar a menos que string seja/não seja correspondente à expressão regular pattern.
+
+assert_valid(record)
+    Falha a menos que record não tenha erros de validação.
+
+##################### ATRIBUTOS #####################
+ATRIBUTOS PAYMENT REQUEST
+payment_request.currency         #Moeda utilizada - Formato: Case sensitive. Somente o valor BRL é aceito.
+payment_request.reference        #Código de referência - Formato: Livre, com o limite de 200 caracteres.
+payment_request.extra_amount     #Valor extra - Formato: Decimal (positivo ou negativo), com duas casas decimais separadas por ponto (p.e., 1234.56 ou -1234.56), maior ou igual a -9999999.00 e menor ou igual a 9999999.00. Quando negativo, este valor não pode ser maior ou igual à soma dos valores dos produtos.
+payment_request.redirect_url     #URL de redirecionamento após o pagamento - Formato: Uma URL válida, com limite de 255 caracteres.
+payment_request.notification_url #URL para envio de notificações sobre o pagamento - Formato: Uma URL válida, com limite de 255 caracteres.
+payment_request.max_uses         #Número máximo de usos para o código de pagamento - Formato: Um número inteiro maior que 0 e menor ou igual a 999.
+payment_request.max_age          #Prazo de validade do código de pagamento - Formato: Um número inteiro maior ou igual a 30 e menor ou igual a 999999999.
+payment_request.items            #Lista de itens contidos no pagamento
+payment_request.sender           #Dados do comprador
+payment_request.shipping         #Dados do frete
+
+ATRIBUTOS ITEM
+item.id            #Identificadores dos itens - Formato: Livre, com limite de 100 caracteres.
+item.description   #Descrições dos itens - Formato: Livre, com limite de 100 caracteres.
+item.amount        #Valores unitários dos itens - Formato: Decimal, com duas casas decimais separadas por ponto (p.e., 1234.56), maior que 0.00 e menor ou igual a 9999999.00.
+item.quantity      #Quantidades dos itens - Formato: Um número inteiro maior ou igual a 1 e menor ou igual a 999.
+item.shipping_cost #Custos de frete dos itens - Formato: Decimal, com duas casas decimais separadas por ponto (p.e., 1234.56), maior que 0.00 e menor ou igual a 9999999.00.
+item.weight        #Pesos dos itens - Formato: Um número inteiro correspondendo ao peso em gramas do item. A soma dos pesos de todos os produtos não pode ultrapassar 30000 gramas (30 kg).
+
+ATRIBUTOS SENDER
+sender.name  #Nome completo do comprador - Formato: No mínimo duas sequências de caracteres, com o limite total de 50 caracteres.
+sender.email #E-mail do comprador - Formato: um e-mail válido (p.e., usuario@site.com.br), com no máximo 60 caracteres.
+
+ATRIBUTOS PHONE
+phone.area_code #DDD do comprador - Formato: Um número de 2 dígitos correspondente a um DDD válido.
+phone.number    #Número do telefone do comprador - Formato: Um número de 7 a 9 dígitos.
+
+ATRIBUTOS SHIPPING
+shipping.type_id #Tipo de frete - Formato: Um número inteiro (1-Encomenda normal (PAC). /2-SEDEX /3-Tipo de frete não especificado.).
+shipping.cost    #Valor total do frete - Formato: Decimal, com duas casas decimais separadas por ponto (p.e, 1234.56), maior que 0.00 e menor ou igual a 9999999.00.
+
+ATRIBUTOS ADDRESS
+address.street      #Nome da rua do endereço de envio - Formato: Livre, com limite de 80 caracteres.
+address.number      #Número do endereço de envio - Formato: Livre, com limite de 20 caracteres.
+address.complement  #Complemento do endereço de envio - Formato: Livre, com limite de 40 caracteres.
+address.district    #Bairro do endereço de envio - Formato: Livre, com limite de 60 caracteres.
+address.postal_code #CEP do endereço de envio - Formato: Um número de 8 dígitos.
+address.city        #Cidade do endereço de envio - Formato: Livre. Deve ser um nome válido de cidade do Brasil, com no mínimo 2 e no máximo 60 caracteres.
+address.state       #Estado do endereço de envio - Formato: Duas letras, em maiúsculo, representando a sigla do estado brasileiro correspondente.
+address.country     #País do endereço de envio - Formato: No momento, apenas o valor BRA é permitido.
+
+ATRIBUTOS TRANSACTION
+transaction.created_at            #Data da criação da transação.
+transaction.code                  #Código identificador da transação.
+transaction.reference             #Código de referência da transação.
+transaction.type_id               #Tipo da transação.
+transaction.updated_at            #Data do último evento.
+transaction.status                #Status da transação.
+transaction.payment_method        #Tipo do meio de pagamento.
+transaction.payment_link
+transaction.gross_amount          #Valor bruto da transação.
+transaction.discount_amount       #Valor do desconto dado.
+transaction.fee_amount            #Valor total das taxas cobradas.
+transaction.net_amount            #Valor líquido da transação.
+transaction.extra_amount          #Valor extra.
+transaction.installments          #Número de parcelas.
+transaction.sender                #Dados do comprador.
+transaction.shipping              #Dados do frete.
+transaction.cancellation_source   #Origem do cancelamento.
+transaction.escrow_end_date       #Data de crédito.
+
+##################### MÉTODOS #####################
+##### MÉTODOS PAYMENT
+payment = PagSeguro::PaymentRequest.new
+payment.generate_xml 												           #GERA XML STRING
+success, response = payment.generate_redirect_url(xml) #GERA URL DE REDIRECIONAMENTO
+
+##################### MÉTODOS TRANSACTION #####################
+# OS MÉTODOS ABAIXO RETORNAM 2 VARIÁVEIS SENDO:
+# A 1º RETORNA TRUE(SUCESSO) OU FALSE(ERRO)
+# A 2º RETORNA O RETORNO DO XML
+
+# RETORNA TRANSACTION OBJECT
+success, response = PagSeguro::Transaction.find_by_code("CODE")                             #CONSULTAR TRANSAÇÃO PELO CÓDIGO DA TRANSAÇÃO
+success, response = PagSeguro::Transaction.find_by_notification_code("NOTIFICATION_CODE")   #CONSULTAR TRANSAÇÃO PELO CÓDIGO DE NOTIFICAÇÃO
+# RETORNA ARRAY DE TRANSAÇÕES
+success, response = PagSeguro::Transaction.find_by_date(Time.now - 86400, Time.now)         #CONSULTAR HISTÓRICO DE TRANSAÇÕES
+success, response = PagSeguro::Transaction.find_abandoned(Time.now - 86400, Time.now - 900) #CONSULTAR TRANSAÇÕES ABANDONADAS
+
+##### COMO UTILIZAR
+FONTE: https://pagseguro.uol.com.br/v2/guia-de-integracao/api-de-pagamentos.html
+
+require 'rubygems'
+require 'pagseguro'
+
+PagSeguro.email = 'EMAIL_PAGSEGURO'
+PagSeguro.token = 'TOKEN_PAGSEGURO'
+payment = PagSeguro::PaymentRequest.new
+payment.items << {
+  :id => 1234,
+  :description => %[Televisão 19" Sony],
+  :amount => 459.50,
+  :weight => 0
+}
+payment.reference = "REF1234"
+payment.sender = {
+  :name => "Komeia Interativa",
+  :email => "teste@gmail.com",
+  :phone => {
+    :area_code => 11,
+    :number => "12345678"
+  }
+}
+payment.shipping = {
+  :type_name => "sedex",
+  :cost => 10.00,
+  :address => {
+    :street => "R. Teste",
+    :number => 1421,
+    :complement => "Sala 213",
+    :city => "Londrina",
+    :state => "PR",
+    :district => "Centro"
+  }
+}
+xml = payment.generate_xml
+success, response = payment.generate_redirect_url(xml)
+if success
+	#SUCESSO
+	puts response
+else
+	#ERRO
+	puts '============'
+	puts xml
+	puts '------------'
+	response.get_errors(xml).each do |e|
+		puts e
+	end
+end
+
+##################### CONSULTAS #####################
+PagSeguro.email = 'EMAIL_PAGSEGURO'
+PagSeguro.token = 'TOKEN_PAGSEGURO'
+##################### TESTE CONSULTA POR CÓDIGO DA TRANSAÇÃO #####################
+resp, response = PagSeguro::Transaction.find_by_code('CODE')
+if resp
+  if response
+    puts response.code
+    puts response.reference
+    puts response.status.id
+  end
+else
+  response.each do |e|
+    puts e
+  end
+end
+
+##################### TESTE CONSULTA POR CÓDIGO DE NOTIFICAÇÃO #####################
+resp, response = PagSeguro::Transaction.find_by_notification_code('NOTIFICATION_CODE')
+if resp
+  if response
+    puts response.code
+    puts response.reference
+    puts response.status.id
+  end
+else
+  response.each do |e|
+    puts e
+  end
+end
+
+##################### TESTE CONSULTA HISTÓRICO DE TRANSAÇÕES #####################
+resp, response = PagSeguro::Transaction.find_by_date(Time.now - 86400, Time.now)
+if resp
+  if response
+    response.each do |t|
+      puts t.code
+      puts t.reference
+      puts t.status.id
+    end
+  end
+else
+  response.each do |e|
+    puts e
+  end
+end
+
+##################### TESTE CONSULTA TRANSAÇÕES ABANDONADAS #####################
+resp, response = PagSeguro::Transaction.find_abandoned(Time.now - 86400, Time.now - 900)
+if resp
+  if response
+    response.each do |t|
+      puts t.code
+      puts t.reference
+      puts t.status.id
+    end
+  end
+else
+  response.each do |e|
+    puts e
+  end
+end
+
+##################### TESTE NO GMR #####################
+payment = PagSeguro::PaymentRequest.new
+order = Order.find(317)
+order.order_items.each do |item|
+payment.items << {
+  :id => item.product.id,
+  :description => item.product.name,
+  :amount => item.price,
+  :weight => item.product.weight
+}
+end
+payment.reference = order.id
+payment.sender = {
+  :name => order.receiver,
+  :email => order.person.user.email,
+  :phone => {
+    :area_code => order.person.ddd,
+    :number => order.person.phone_residential
+  }
+}
+payment.shipping = {
+  :type_id => 3,
+  :cost => order.ship_value,
+  :address => {
+    :street => order.delivery_address.street,
+    :number => order.delivery_address.number,
+    :complement => order.delivery_address.complement,
+    :city => order.delivery_address.city,
+    :state => order.delivery_address.state,
+    :district => order.delivery_address.neighborhood
+  }
+}
+success, response = payment.generate_redirect_url(xml)
+success, response = PagSeguro::Transaction.find_by_code('CODE')

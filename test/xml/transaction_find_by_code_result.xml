@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<transaction>
+  <date>2014-07-04T10:54:01.000-03:00</date>
+  <code>05B65203-D04A-486C-A240-8E5B78E88DBC</code>
+  <reference>REF1234</reference>
+  <type>1</type>
+  <status>1</status>
+  <lastEventDate>2014-07-04T10:54:46.000-03:00</lastEventDate>
+  <paymentMethod>
+    <type>2</type>
+    <code>202</code>
+  </paymentMethod>
+  <paymentLink>https://pagseguro.uol.com.br/checkout/payment/booklet/print.jhtml?c=6561c8e4992f5f427235b6fad7296c20a0da8c47936def2e3b8e0ef802b1a2ba757c889a56ad2daa</paymentLink>
+  <grossAmount>11.00</grossAmount>
+  <discountAmount>0.00</discountAmount>
+  <feeAmount>0.95</feeAmount>
+  <netAmount>10.05</netAmount>
+  <extraAmount>0.00</extraAmount>
+  <installmentCount>1</installmentCount>
+  <itemCount>1</itemCount>
+  <items>
+    <item>
+      <id>1234</id>
+      <description>Televis?o 19 Sony</description>
+      <quantity>1</quantity>
+      <amount>1.00</amount>
+    </item>
+  </items>
+  <sender>
+    <name>Komeia Interativa Teste</name>
+    <email>teste@gmail.com</email>
+    <phone>
+      <areaCode>11</areaCode>
+      <number>12345678</number>
+    </phone>
+  </sender>
+  <shipping>
+    <address>
+      <street>AVENIDA JUSCELINO KUBITSCHEK</street>
+      <number>1234</number>
+      <complement>Casa</complement>
+      <district>Vila Ipiranga</district>
+      <city>LONDRINA</city>
+      <state>PR</state>
+      <country>BRA</country>
+      <postalCode>86010540</postalCode>
+    </address>
+    <type>2</type>
+    <cost>10.00</cost>
+  </shipping>
+</transaction>

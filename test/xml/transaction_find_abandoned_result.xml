@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<transactionSearchResult>
+  <date>2014-07-04T13:43:54.000-03:00</date>
+  <transactions>
+    <transaction>
+      <date>2014-07-04T09:08:19.000-03:00</date>
+      <reference>REF1234</reference>
+      <code>38A6B96F-D649-4516-88AF-6A940A796C0B</code>
+      <recoveryCode>7df5a68dd88c50bb5aefbea607182d8900f0a26ff02944e9</recoveryCode>
+      <type>1</type>
+      <grossAmount>469.50</grossAmount>
+    </transaction>
+    <transaction>
+      <date>2014-07-03T17:05:40.000-03:00</date>
+      <reference>REF1234</reference>
+      <code>25A60977-CF0D-4338-A177-D11FE62A0EBB</code>
+      <recoveryCode>7df5a68dd88c50bbcc87e169a43d3e499620fa1029a1a88d</recoveryCode>
+      <type>1</type>
+      <grossAmount>469.50</grossAmount>
+    </transaction>
+    <transaction>
+      <date>2014-07-03T16:46:28.000-03:00</date>
+      <reference>REF1234</reference>
+      <code>02F26769-F53B-467B-9299-961072BCBABA</code>
+      <recoveryCode>7df5a68dd88c50bba19456a75fc55eb93d8561b5cbe04f37</recoveryCode>
+      <type>1</type>
+      <grossAmount>459.50</grossAmount>
+    </transaction>
+  </transactions>
+  <resultsInThisPage>3</resultsInThisPage>
+  <currentPage>1</currentPage>
+  <totalPages>1</totalPages>
+</transactionSearchResult>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<transactionSearchResult>
+  <date>2014-07-04T11:44:22.000-03:00</date>
+  <transactions>
+    <transaction>
+      <date>2014-07-04T10:54:01.000-03:00</date>
+      <reference>REF1234</reference>
+      <code>05B65203-D04A-486C-A240-8E5B78E88DBC</code>
+      <type>1</type>
+      <status>1</status>
+      <paymentMethod>
+        <type>2</type>
+      </paymentMethod>
+      <grossAmount>11.00</grossAmount>
+      <discountAmount>0.00</discountAmount>
+      <feeAmount>0.95</feeAmount>
+      <netAmount>10.05</netAmount>
+      <extraAmount>0.00</extraAmount>
+      <lastEventDate>2014-07-04T10:54:46.000-03:00</lastEventDate>
+    </transaction>
+  </transactions>
+  <resultsInThisPage>1</resultsInThisPage>
+  <currentPage>1</currentPage>
+  <totalPages>1</totalPages>
+</transactionSearchResult>
